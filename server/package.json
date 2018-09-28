@@ -10,6 +10,7 @@
   "dependencies": {
     "express": "^4.16.3",
     "graphql": "^14.0.2",
-    "mongoose": "^5.2.18"
+    "mongoose": "^5.2.18",
+    "redux-thunk": "^2.3.0"
   }
 }
