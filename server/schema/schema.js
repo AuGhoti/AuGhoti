@@ -122,18 +122,81 @@ const HistoricalActionType = new GraphQLObjectType({
     })
 })
 
+const GlobalActivityType = new GraphQLObjectType({
+    name: "GlobalActiviy",
+    fields: () => ({
+        id: { type: GraphQLID },
+        title: { type: GraphQLString }
+    })
+})
+
 const RootQeury = new GraphQLObjectType({
     name: "RootQueryType",
     fields: {
         user: {
-
+            type: UserType,
+            args: {id: { type: GraphQLID }},
+            resolve(parent,args) {
+                return User.findOne({id: args.id})
+            }
+        },
+        activity: {
+            type: ActivityType,
+            args: {id: { type: GraphQLID }},
+            resolve(parent, args) {
+                return Activity.findOne({id: args.id})
+            }
+        },
+        currentAction: {
+            type: ActionType,
+            args: {id: { type: GraphQLID }},
+            resolve(parent, args) {
+                return Action.findOne({id: args.id})
+            }
+        },
+        historicalAction: {
+            type: HistoricalActionType,
+            args: {id: { type: GraphQLID }},
+            resolve(parent, arsg) {
+                return HistoricalAction.findOne({id: args.id})
+            }
+        },
+        globalActivity: {
+            type: GlobalActivityType,
+            args: {title: { type: GraphQLString }},
+            resolve(parent, args) {
+                return GlobalActivity.findOne({title: args.title})
+            }
         },
         users: {
-
+            type: new GraphQLList(UserType),
+            resolve(parent, args) {
+                return User.find()
+            }
         },
-        action: {
-
+        activities: {
+            type: new GraphQLList(ActivityType),
+            resolve(parent, args) {
+                return Activity.find()
+            }
         },
-        actions
+        currentActions: {
+            type: new GraphQLList(CurrentActionType),
+            resolve(parent, args) {
+                return CurrentAction.find()
+            }
+        },
+        historicalActions: {
+            type: new GraphQLList(HistoricalActionType),
+            resolve(parent, args){
+                return HistoricalAction.find()
+            }
+        },
+        globalActivities: {
+            type: new GraphQLList(GlobalActivityType),
+            resolve(parent, args) {
+                return GlobalActivity.find()
+            }
+        }
     }
 })
