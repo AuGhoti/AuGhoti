@@ -22,6 +22,10 @@ const historicalActionSchema = new Schema({
         type: String,
         required: false
     },
+    activityTitle: {
+        type: String,
+        required: false
+    },
     activityId: {
         type: String,
         required: false

@@ -13,9 +13,9 @@ server.use("/graphql", graphQLHTTP({
                                     graphiql: true
 }))
 
-mongoose.connect('mongodb://localhost:27017/au', {vuseNewUrlParser: truev})
+mongoose.connect('mongodb://localhost:27017/au', { useNewUrlParser: true })
     .then(() => console.log("connected to Au Database"))
-    .catch(err => console.error(err))
+    .catch(err => console.error(err)) 
 
 server.listen(8080, () => {
     console.log('Server is listening on PORT: 8080')

@@ -14,10 +14,14 @@ const currentActionSchema = new Schema({
         type: String,
         required: false
     },
-    activityId: {
+    activityTitle: {
         type: String,
         ref: "Activity",
         required: true
+    },
+    activityId: {
+        type: String,
+        required: false
     },
     userId: {
         type: String,
