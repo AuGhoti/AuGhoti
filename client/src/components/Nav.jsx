@@ -15,7 +15,9 @@ import {
 } from "@material-ui/core";
 import { MenuRounded } from "@material-ui/icons";
 
-const style = {};
+const styles = theme => ({
+  root: { justify: "space-between" }
+});
 
 class Nav extends Component {
   state = { mobileOpen: false };
@@ -29,6 +31,7 @@ class Nav extends Component {
   };
 
   render() {
+    const { classes, theme } = this.props;
     const drawer = (
       <div>
         <List>item</List>
@@ -39,12 +42,18 @@ class Nav extends Component {
     return (
       <React.Fragment>
         <AppBar position="static">
-          <Toolbar>
-            <IconButton aria-label="Menu">
+          <Toolbar className={classes.root}>
+            <IconButton
+              color="inherit"
+              aria-label="Menu"
+              onClick={this.handleDrawerToggle}
+            >
               <MenuRounded />
             </IconButton>
-            <Typography>AuGhoti</Typography>
-            <Button onClick={this.handleLoginout}>
+            <Typography variant="title" color="inherit" noWrap>
+              AuGhoti
+            </Typography>
+            <Button onClick={this.handleLoginout} color="inherit">
               {this.props.isAuthenticated ? "Logout" : "Login"}
             </Button>
           </Toolbar>
@@ -52,7 +61,7 @@ class Nav extends Component {
         <Hidden mdUp>
           <Drawer
             variant="temporary"
-            anchor="right"
+            anchor="left"
             open={this.state.mobileOpen}
             onClose={this.handleDrawerToggle}
             ModalProps={{ keepMounted: true }}
@@ -75,7 +84,7 @@ Nav.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired
 };
 
-export default withStyles(style)(
+export default withStyles(styles)(
   connect(
     state => state,
     {}
