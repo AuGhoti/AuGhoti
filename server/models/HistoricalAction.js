@@ -24,7 +24,7 @@ const historicalActionSchema = new Schema({
     },
     activityTitle: {
         type: String,
-        required: false
+        required: true
     },
     userId: {
         type: String,

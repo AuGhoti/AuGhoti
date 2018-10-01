@@ -16,7 +16,6 @@ const currentActionSchema = new Schema({
     },
     activityTitle: {
         type: String,
-        ref: "Activity",
         required: true
     },
     userId: {
