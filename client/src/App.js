@@ -11,24 +11,35 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3,
-    marginLeft: 250,
-    width: "100%",
-    height: "100%"
+    padding: theme.spacing.unit * 3
+  },
+  root: {
+    flexGrow: 1,
+    zIndex: 1,
+    height: 440,
+    overflow: "hidden",
+    position: "relative",
+    display: "flex",
+    width: "100%"
+  },
+  toolbar: {
+    ...theme.mixins.toolbar,
+    position: "relative"
   }
 });
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className={this.props.classes.root}>
         <Nav />
-        <div className={this.props.classes.content}>
+        <main className={this.props.classes.content}>
+          <div className={this.props.classes.toolbar} />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/dashboard" component={Dashboard} />
           </Switch>
-        </div>
+        </main>
       </div>
     );
   }

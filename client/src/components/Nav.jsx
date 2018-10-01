@@ -21,19 +21,11 @@ import { MenuRounded } from "@material-ui/icons";
 const drawerWidth = 250;
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    zIndex: 1,
-    height: 64,
-    overflow: "hidden",
-    position: "relative",
-    display: "flex",
-    width: "100%"
-  },
   grow: {
     flexGrow: 1
   },
   drawer: {
+    position: "relative",
     width: drawerWidth
   },
   appBar: {
@@ -41,6 +33,11 @@ const styles = theme => ({
     marginLeft: drawerWidth,
     [theme.breakpoints.up("md")]: {
       width: `calc(100% - ${drawerWidth}px)`
+    }
+  },
+  navIconHide: {
+    [theme.breakpoints.up("md")]: {
+      display: "none"
     }
   },
   toolbar: theme.mixins.toolbar
@@ -64,7 +61,7 @@ class Nav extends Component {
         <div className={classes.toolbar} />
         <Divider />
         <List component="nav">
-          {this.props.isAuthenticated ? (
+          {this.props.isAuthenticated ? ( // Add here to add links in drawer for logged in users
             <React.Fragment>
               <ListItem
                 component={Link}
@@ -89,6 +86,7 @@ class Nav extends Component {
               </ListItem>
             </React.Fragment>
           ) : (
+            // Add here for links in drawer for not-logged-in users
             <React.Fragment>
               <ListItem
                 component={Link}
@@ -110,13 +108,14 @@ class Nav extends Component {
       </div>
     );
     return (
-      <div className={classes.root}>
+      <React.Fragment>
         <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton
               color="inherit"
               aria-label="Menu"
               onClick={this.handleDrawerToggle}
+              className={this.props.classes.navIconHide}
             >
               <MenuRounded />
             </IconButton>
@@ -139,9 +138,6 @@ class Nav extends Component {
                 <Button onClick={this.handleSignup} color="inherit">
                   Sign Up
                 </Button>
-                <Button onClick={this.handleLogin} color="inherit">
-                  Login
-                </Button>
               </div>
             )}
           </Toolbar>
@@ -163,7 +159,7 @@ class Nav extends Component {
             {drawer}
           </Drawer>
         </Hidden>
-      </div>
+      </React.Fragment>
     );
   }
 }
