@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
   withStyles,
@@ -11,12 +12,38 @@ import {
   List,
   Divider,
   Hidden,
-  Drawer
+  Drawer,
+  ListItem,
+  ListItemText
 } from "@material-ui/core";
 import { MenuRounded } from "@material-ui/icons";
 
+const drawerWidth = 250;
+
 const styles = theme => ({
-  root: { justify: "space-between" }
+  root: {
+    flexGrow: 1,
+    zIndex: 1,
+    height: 64,
+    overflow: "hidden",
+    position: "relative",
+    display: "flex",
+    width: "100%"
+  },
+  grow: {
+    flexGrow: 1
+  },
+  drawer: {
+    width: drawerWidth
+  },
+  appBar: {
+    position: "absolute",
+    marginLeft: drawerWidth,
+    [theme.breakpoints.up("md")]: {
+      width: `calc(100% - ${drawerWidth}px)`
+    }
+  },
+  toolbar: theme.mixins.toolbar
 });
 
 class Nav extends Component {
@@ -31,18 +58,61 @@ class Nav extends Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
     const drawer = (
       <div>
-        <List>item</List>
+        <div className={classes.toolbar} />
         <Divider />
-        <List>another item</List>
+        <List component="nav">
+          {this.props.isAuthenticated ? (
+            <React.Fragment>
+              <ListItem
+                component={Link}
+                to="/dashboard"
+                style={{ textDecoration: "none" }}
+              >
+                <ListItemText>Dashboard</ListItemText>
+              </ListItem>
+              <ListItem
+                component={Link}
+                to="/current"
+                style={{ textDecoration: "none" }}
+              >
+                <ListItemText>Current</ListItemText>
+              </ListItem>
+              <ListItem
+                component={Link}
+                to="/past"
+                style={{ textDecoration: "none" }}
+              >
+                <ListItemText>Past</ListItemText>
+              </ListItem>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <ListItem
+                component={Link}
+                to="/"
+                style={{ textDecoration: "none" }}
+              >
+                <ListItemText>Home</ListItemText>
+              </ListItem>
+              <ListItem
+                component={Link}
+                to="/about"
+                style={{ textDecoration: "none" }}
+              >
+                <ListItemText>About</ListItemText>
+              </ListItem>
+            </React.Fragment>
+          )}
+        </List>
       </div>
     );
     return (
-      <React.Fragment>
-        <AppBar position="static">
-          <Toolbar className={classes.root}>
+      <div className={classes.root}>
+        <AppBar className={classes.appBar}>
+          <Toolbar>
             <IconButton
               color="inherit"
               aria-label="Menu"
@@ -50,12 +120,30 @@ class Nav extends Component {
             >
               <MenuRounded />
             </IconButton>
-            <Typography variant="title" color="inherit" noWrap>
-              AuGhoti
+            <Typography
+              variant="title"
+              color="inherit"
+              noWrap
+              className={classes.grow}
+            >
+              [Au]ghoti
             </Typography>
-            <Button onClick={this.handleLoginout} color="inherit">
-              {this.props.isAuthenticated ? "Logout" : "Login"}
-            </Button>
+            {this.props.isAuthenticated ? (
+              <div>
+                <Button onClick={this.handleLogout} color="inherit">
+                  Logout
+                </Button>
+              </div>
+            ) : (
+              <div>
+                <Button onClick={this.handleSignup} color="inherit">
+                  Sign Up
+                </Button>
+                <Button onClick={this.handleLogin} color="inherit">
+                  Login
+                </Button>
+              </div>
+            )}
           </Toolbar>
         </AppBar>
         <Hidden mdUp>
@@ -65,16 +153,17 @@ class Nav extends Component {
             open={this.state.mobileOpen}
             onClose={this.handleDrawerToggle}
             ModalProps={{ keepMounted: true }}
+            classes={{ paper: classes.drawer }}
           >
             {drawer}
           </Drawer>
         </Hidden>
         <Hidden smDown implementation="css">
-          <Drawer variant="permanent" open>
+          <Drawer variant="permanent" classes={{ paper: classes.drawer }} open>
             {drawer}
           </Drawer>
         </Hidden>
-      </React.Fragment>
+      </div>
     );
   }
 }
