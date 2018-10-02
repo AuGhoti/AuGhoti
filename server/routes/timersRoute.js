@@ -6,6 +6,7 @@ const Action = require("../models/HistoricalAction");
 
 // Get all of a users timers
 timers.route("/").get((req, res) => {
+  console.log(req);
   Timer.find({ user: req.user._id }, (err, tmrs) => {
       if (err) return res.status(500).send(err);
       return res.send(tmrs)

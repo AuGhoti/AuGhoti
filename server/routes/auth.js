@@ -26,11 +26,11 @@ authRouter.post("/signup", (req, res) => {
 
 authRouter.post("/login", (req, res) => {
   if (req.body.username) {
-    User.findOne({ username: req.body.username.toLowerCase() }, (err, user) => {
+    User.findOne({ username: req.body.username }, (err, user) => {
       if (!user || err) {
         return res
           .status(403)
-          .send({ success: false, err: "Username or password is incorrect" });
+          .send({ success: false, err: "Username or password is totes incorrect" });
       } else {
         user.checkPassword(req.body.password, (err, match) => {
           if (err) return res.status(500).send({ success: false, err });
