@@ -23,6 +23,7 @@ mongoose.connect('mongodb://localhost:27017/au', { useNewUrlParser: true })
 
 // telling server what to do
 app.use('/auth', require('./routes/auth'));
+app.use('/', require('./routes/timersRoute'));
 
 // server listening
 app.listen(PORT, () => {
