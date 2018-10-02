@@ -21,10 +21,12 @@ const token = (prev = null, action) => {
     // case "INIT":
     //   return localStorage.getItem("token");
     case "LOGIN_SUCCESSFUL":
-      localStorage.setItem("token", action.data);
+      localStorage.setItem("token", action.data.token);
+      localStorage.setItem("id", action.data.user._id);
       return action.data;
     case "LOGOUT_SUCCESSFUL":
       localStorage.removeItem("token");
+      localStorage.removeItem("id");
       return "";
     default:
       return prev;
@@ -120,7 +122,7 @@ const isActivitiesLoaded = (prev = false, action) => {
 // TODO: Revisit and use for all API errors
 const error = (prev = "", action) => {
   switch (action.type) {
-    case "LOGIN_ERROR":
+    case "AUTH_ERROR":
       return action.data;
     case "LOGIN_SUCCESSFUL":
       return "";

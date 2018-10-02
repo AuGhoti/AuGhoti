@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import AppAlt from "./AppAlt";
 import registerServiceWorker from "./registerServiceWorker";
-import store from "./redux";
+import store from "./redux/store";
 
 ReactDOM.render(
   <Provider store={store}>
