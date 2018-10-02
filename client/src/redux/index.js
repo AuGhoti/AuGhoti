@@ -29,12 +29,28 @@ const token = (prev = null, action) => {
   }
 };
 
+const userInfo = (prev = {}, action) => {
+  switch (action.type) {
+    case "LOGIN_SUCCESSFUL":
+      return action.data.user;
+    case "LOGOUT_SUCCESSFUL":
+      return {};
+    default:
+      return prev;
+  }
+};
+
 const currentAction = (prev = [], action) => {
   switch (action.type) {
     case "LOGOUT_SUCCESSFUL":
       return [];
     case "CURRENTACTIONS_LOADED":
       return action.data;
+    case "ACTION_STARTED":
+      return [...prev, action.data];
+    case "ACTION_ENDED":
+    case "CURRENTACTION_DELETED":
+      return prev.filter(v => v._id !== action.id);
     default:
       return prev;
   }
@@ -55,6 +71,10 @@ const historicalActions = (prev = [], action) => {
   switch (action.type) {
     case "LOGOUT_SUCCESSFUL":
       return [];
+    case "ACTION_ENDED":
+      return [...prev, action.data];
+    case "HISTORICALACTION_DELETED":
+      return prev.filter(v => v._id !== action.data);
     default:
       return prev;
   }
@@ -75,6 +95,10 @@ const activities = (prev = [], action) => {
   switch (action.type) {
     case "LOGOUT_SUCCESSFUL":
       return [];
+    case "ACTIVITY_ADDED":
+      return [...prev, action.data];
+    case "ACTIVITY_DELETED":
+      return prev.filter(v => v._id !== action.id);
     default:
       return prev;
   }
@@ -91,15 +115,29 @@ const isActivitiesLoaded = (prev = false, action) => {
   }
 };
 
+// TODO: Revisit and use for all API errors
+const error = (prev = "", action) => {
+  switch (action.type) {
+    case "LOGIN_ERROR":
+      return action.data;
+    case "LOGIN_SUCCESSFUL":
+      return "";
+    default:
+      return prev;
+  }
+};
+
 const reducer = combineReducers({
   isAuthenticated,
   token,
+  userInfo,
   currentAction,
   isCurrentActionsLoaded,
   historicalActions,
   isHistoricalActionsLoaded,
   activities,
-  isActivitiesLoaded
+  isActivitiesLoaded,
+  error
 });
 
 const composeEnhancers =
