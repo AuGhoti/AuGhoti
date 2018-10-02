@@ -35,7 +35,7 @@ const styles = {
   
       const sideList = (
         <div className={classes.list} id="drawer-items">
-          <Link to="/dashboard"><List>dashboard</List></Link>
+          <Link to="/"><List>dashboard</List></Link>
           <Divider style={{marginLeft: "-10px"}}/>
           <Link to="/current"><List>current</List></Link>
           <Link to="/activity"><List>activities</List></Link>

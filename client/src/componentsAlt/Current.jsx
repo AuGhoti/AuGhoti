@@ -18,7 +18,7 @@ class Current extends Component {
             <div id="main-content-full">
                 <div id="main-content-wrapper">
                     <Switch>
-                        <Route exact path="/dashboard" component={Dashboard}/>
+                        <Route exact path="/" component={Dashboard}/>
                         <Route exact path="/current" component={CurrentAction}/>
                         <Route exact path="/activity" component={Activity}/>
                         <Route exact path="/history" component={History}/>
