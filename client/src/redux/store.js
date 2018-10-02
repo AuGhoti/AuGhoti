@@ -3,8 +3,9 @@ import thunk from "redux-thunk";
 
 const isAuthenticated = (prev = false, action) => {
   switch (action.type) {
-    case "INIT":
-      return localStorage.getItem("token") ? true : false;
+    // TODO: this won't work like intended
+    // case "INIT":
+    // return localStorage.getItem("token") ? true : false;
     case "LOGIN_SUCCESSFUL":
       return true;
     case "LOGOUT_SUCCESSFUL":
@@ -15,9 +16,10 @@ const isAuthenticated = (prev = false, action) => {
 };
 
 const token = (prev = null, action) => {
+  // TODO: this won't work as intended
   switch (action.type) {
-    case "INIT":
-      return localStorage.getItem("token");
+    // case "INIT":
+    //   return localStorage.getItem("token");
     case "LOGIN_SUCCESSFUL":
       localStorage.setItem("token", action.data);
       return action.data;
