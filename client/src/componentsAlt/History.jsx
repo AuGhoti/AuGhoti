@@ -6,6 +6,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { connect } from 'react-redux'
 
 const styles = theme => ({
     root: {
@@ -22,32 +23,32 @@ const styles = theme => ({
     },
 });
 
-const dummyData = [
-    {
-        activityTitle: "homework",
-        description: "coding project",
-        startDate: "Oct 1, 2018",
-        endDate: "Oct 2, 2018",
-        startTime: "1:00 PM",
-        endTime: "3:00 PM"
-    },
-    {
-        activityTitle: "lunch",
-        description: "burrito city",
-        startDate: "Oct 1, 2018",
-        endDate: "Oct 3, 2018",
-        startTime: "12:00 PM",
-        endTime: "9:00 PM"
-    },
-    {
-        activityTitle: "class",
-        description: "user auth",
-        startDate: "Oct 1, 2018",
-        endDate: "Oct 4, 2018",
-        startTime: "10:00 PM",
-        endTime: "3:00 AM"
-    },
-]
+// const dummyData = [
+//     {
+//         activityTitle: "homework",
+//         description: "coding project",
+//         startDate: "Oct 1, 2018",
+//         endDate: "Oct 2, 2018",
+//         startTime: "1:00 PM",
+//         endTime: "3:00 PM"
+//     },
+//     {
+//         activityTitle: "lunch",
+//         description: "burrito city",
+//         startDate: "Oct 1, 2018",
+//         endDate: "Oct 3, 2018",
+//         startTime: "12:00 PM",
+//         endTime: "9:00 PM"
+//     },
+//     {
+//         activityTitle: "class",
+//         description: "user auth",
+//         startDate: "Oct 1, 2018",
+//         endDate: "Oct 4, 2018",
+//         startTime: "10:00 PM",
+//         endTime: "3:00 AM"
+//     },
+// ]
 
 class History extends Component {
   state = {
@@ -64,9 +65,9 @@ class History extends Component {
     const { classes } = this.props;
     const { expanded } = this.state;
 
-    const displayHis = dummyData.map((his, i) => {
+    const displayHis = this.props.historicalActions.map((his, i) => {
         return (
-            <ExpansionPanel expanded={expanded === `panel${i+1}`} onChange={this.handleChange(`panel${i+1}`)}>
+            <ExpansionPanel key={i} expanded={expanded === `panel${i+1}`} onChange={this.handleChange(`panel${i+1}`)}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography className={classes.heading}>{his.activityTitle}</Typography>
                     <Typography className={classes.secondaryHeading}>completed: {his.endDate}</Typography>
@@ -103,4 +104,4 @@ History.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(History);
+export default connect(state => ({ historicalActions: state.historicalActions }), {})(withStyles(styles)(History))

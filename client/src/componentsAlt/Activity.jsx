@@ -1,31 +1,33 @@
 import React, { Component } from 'react'
-import MenuItem from '@material-ui/core/MenuItem';
+// import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux'
+import { addActivity } from '../redux/actions'
 
 // components
 import ActivityItem from './ActivityItem'
 
-const dummyAct = [
-    {
-        title: "coding",
-        description: "full stack"
-    },
-    {
-        title: "eating",
-        description: "burrito city"
-    },
-    {
-        title: "exercise",
-        description: "weight-lifting"
-    },
-    {
-        title: "halo",
-        description: "slaying bodies"
-    }
-]
+// const dummyAct = [
+//     {
+//         title: "coding",
+//         description: "full stack"
+//     },
+//     {
+//         title: "eating",
+//         description: "burrito city"
+//     },
+//     {
+//         title: "exercise",
+//         description: "weight-lifting"
+//     },
+//     {
+//         title: "halo",
+//         description: "slaying bodies"
+//     }
+// ]
 
 const styles = theme => ({
     container: {
@@ -58,9 +60,15 @@ class Activity extends Component {
     handleChange = name => e => {
         this.setState({[name]: e.target.value})
     }
+
+    handleSubmit = e => {
+        e.preventDefault()
+        const { activity, description } = this.state
+        this.props.addActivity(activity, description)
+    }
     
     render(){
-        const displayAct = dummyAct.map((act, i) => {
+        const displayActivities = this.props.activities.map((act, i) => {
             return <ActivityItem key={i} i={i} {...act}/>
         })
 
@@ -87,12 +95,12 @@ class Activity extends Component {
                         margin="normal"
                     />
                     <div className="start-action-btn">
-                        <Button onClick="">Start</Button>
+                        <Button onClick={this.handleSubmit}>Start</Button>
                     </div>
                 </form>
                 <h3 className="current-actions-title">Activities</h3>
                 <div className="activities-container">
-                    {displayAct}
+                    {displayActivities}
                 </div>
             </div>
             
@@ -104,4 +112,4 @@ Activity.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Activity)
+export default connect(state => ({ activities: state.activities }), {addActivity})(withStyles(styles)(Activity))
