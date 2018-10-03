@@ -83,7 +83,7 @@ export const loadActivities = () => {
 };
 
 // TODO: use an authAxios variable with headers to pass token
-export const startAction = activityTitle => {
+export const startAction = (activityTitle, description = "") => {
   let obj = {};
   if (!activityTitle)
     obj = {

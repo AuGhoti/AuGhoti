@@ -11,7 +11,6 @@ import { connect } from "react-redux";
 import logo from "../images/au.svg";
 
 // components
-import Current from "./Current";
 import { logout } from "../redux/actions";
 
 const styles = theme => ({
@@ -49,14 +48,14 @@ class Main extends Component {
         </Link>
         
         <Link to="/current">
-          current
+          <List>current</List>
         </Link>
 
         <Link to="/activity">
           <List>activities</List>
         </Link>
         <Link to="/history">
-         history
+         <List>history</List>
         </Link>
         <Link to="/analytics">
           <List>analytics</List>
@@ -70,7 +69,7 @@ class Main extends Component {
     return (
       <div>
         <div id="main-nav">
-          <img className="main-nav-logo" src={logo} />
+          <img className="main-nav-logo" src={logo} alt="logo"/>
           <Button
             className="menu-btn"
             style={{ color: "#b2bec3" }}
@@ -94,7 +93,7 @@ class Main extends Component {
             </div>
           </SwipeableDrawer>
         </div>
-        <Current />
+        {/* <Current /> */}
       </div>
     );
   }

@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux'
+import { startAction } from '../redux/actions'
 
 // components
 import CurrentActionItem from './CurrentActionItem'
@@ -60,6 +62,11 @@ class CurrentAction extends Component {
         this.setState({[name]: e.target.value})
     }
 
+    handleSubmit = e => {
+        e.preventDefault()
+        this.props.startAction()
+    }
+
 
     activities = ["train", "eat"]
 
@@ -106,10 +113,9 @@ class CurrentAction extends Component {
                         margin="normal"
                         />
                     <div className="start-action-btn">
-                        <Button >Start</Button>
+                        <Button onClick={this.props.handleSubmit}>Start</Button>
                     </div>
                 </form>
-                
                 {displayDummy}
             </div>
         )
@@ -120,4 +126,4 @@ CurrentAction.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CurrentAction)
+export default connect(state => ({ currentActions: state.currentActions }), { startAction })(withStyles(styles)(CurrentAction))

@@ -1,4 +1,9 @@
-import { createStore, combineReducers, compose, applyMiddleware } from "redux";
+import {
+  createStore,
+  combineReducers,
+  compose,
+  applyMiddleware
+} from "redux";
 import thunk from "redux-thunk";
 
 const isAuthenticated = (prev = false, action) => {
