@@ -27,7 +27,7 @@ export const login = ({ username, password }) => {
         init();
         dispatch({ type: "LOGIN_SUCCESSFUL", data: res.data });
       })
-      .catch(err => dispatch({ type: "AUTH_ERROR", data: err }));
+      .catch(err => console.log(err));
   };
 };
 

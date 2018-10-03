@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const authRouter = express.Router();
 require("dotenv").config();
 
+// Create a new account
 authRouter.post("/signup", (req, res) => {
   User.findOne({ username: req.body.username }, (err, existingUser) => {
     if (existingUser !== null || err) {
@@ -24,6 +25,7 @@ authRouter.post("/signup", (req, res) => {
   });
 });
 
+// Sign into an existing account
 authRouter.post("/login", (req, res) => {
   if (req.body.username) {
     User.findOne({ username: req.body.username }, (err, user) => {

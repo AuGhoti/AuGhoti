@@ -1,12 +1,12 @@
 const express = require("express");
 const moment = require("moment");
 const history = express.Router();
-const Action = require("../models/HistoricalAction");
+const HistoricalAction = require("../models/HistoricalAction");
 
 history
   .route("/")
   .get((req, res) => {
-    Action.find({ user: req.user._id }, (err, actions) => {
+    HistoricalAction.find({ userId: req.user._id }, (err, actions) => {
         if (err) res.status(500).send(err);
         else {
           const response = {
@@ -48,7 +48,7 @@ history
     })
   })
   .post((req, res) => {
-    const newAction = new Action(req.body);
+    const newAction = new HistoricalAction(req.body);
     newAction.userId = req.user._id;
     newAction.save((err, action) => {
       if (err) return res.status(500).send(err);
@@ -59,20 +59,20 @@ history
 history
   .route("/:id")
   .get((req, res) => {
-    Action.findOne({ _id: req.params.id, user: req.user._id }, (err, action) => {
+    HistoricalAction.findOne({ _id: req.params.id, userId: req.user._id }, (err, action) => {
         if (err) return res.status(404).send(err);
         return res.send(action);
     });
   })
   .delete((req, res) => {
-    Action.findOneAndRemove({ _id: req.params.id, user: req.user._id }, err => {
+    HistoricalAction.findOneAndRemove({ _id: req.params.id, userId: req.user._id }, err => {
       if (err) return res.status(404).send(err);
       return res.sendStatus(204);
     });
   })
   .put((req, res) => {
-    Action.findOneAndUpdate(
-        { _id: req.params.id, user: req.user._id },
+    HistoricalAction.findOneAndUpdate(
+        { _id: req.params.id, userId: req.user._id },
         req.body,
         { new: true, runValidators: true },
         (err, action) => {
