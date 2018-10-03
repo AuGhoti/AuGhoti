@@ -66,7 +66,7 @@ class History extends Component {
 
     const displayHis = dummyData.map((his, i) => {
         return (
-            <ExpansionPanel expanded={expanded === `panel${i+1}`} onChange={this.handleChange(`panel${i+1}`)}>
+            <ExpansionPanel key={i} expanded={expanded === `panel${i+1}`} onChange={this.handleChange(`panel${i+1}`)}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography className={classes.heading}>{his.activityTitle}</Typography>
                     <Typography className={classes.secondaryHeading}>completed: {his.endDate}</Typography>

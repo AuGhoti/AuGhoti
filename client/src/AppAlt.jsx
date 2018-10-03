@@ -9,7 +9,7 @@ import Main from "./componentsAlt/Main";
 import "./styles/styles.css";
 
 const AppAlt = props => {
-  return <div>{props.isAuthenticated ? <Main /> : <Login />}</div>;
+  return props.isAuthenticated ? <Main /> : <Login />
 };
 
 export default connect(

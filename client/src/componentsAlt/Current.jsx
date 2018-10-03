@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 
 // Components
 import Dashboard from "./Dashboard";
@@ -17,11 +17,11 @@ class Current extends Component {
       <div id="main-content-full">
         <div id="main-content-wrapper">
           <Switch>
-            <Route exact path="/" component={Dashboard} />
-            <Route path="/current" component={CurrentAction} />
-            <Route path="/activity" component={Activity} />
-            <Route path="/history" component={History} />
-            <Route path="/statistics" component={Stats} />
+            <Route exact path="/" component={ Dashboard } />
+            <Route exact path="/current" component={ CurrentAction} />
+            <Route exact path="/activity" component={Activity} />
+            <Route exact path="/history" component={History} />
+            <Route exact path="/analytics" component={Stats} />
           </Switch>
         </div>
       </div>
@@ -29,4 +29,4 @@ class Current extends Component {
   }
 }
 
-export default Current;
+export default withRouter(Current);

@@ -42,24 +42,26 @@ class Main extends Component {
 
     const sideList = (
       <div className={classes.list} id="drawer-items">
-        <div className={classes.toolbar}>[Au]Ghoti</div>
+        <div className={classes.toolbar} id="drawer-logo">[Au]Ghoti</div>
         <Divider style={{ marginLeft: "-10px" }} />
         <Link to="/">
           <List>dashboard</List>
         </Link>
+        
         <Link to="/current">
-          <List>current</List>
+          current
         </Link>
+
         <Link to="/activity">
           <List>activities</List>
         </Link>
         <Link to="/history">
-          <List>history</List>
+         history
         </Link>
-        <Link to="/statistics">
-          <List>statistics</List>
+        <Link to="/analytics">
+          <List>analytics</List>
         </Link>
-        <button onClick={this.handleLogout}>
+        <button onClick={this.handleLogout} className="logout-btn">
           <List>logout</List>
         </button>
       </div>

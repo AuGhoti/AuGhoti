@@ -87,7 +87,7 @@ class Activity extends Component {
                         margin="normal"
                     />
                     <div className="start-action-btn">
-                        <Button onClick="">Start</Button>
+                        <Button >Start</Button>
                     </div>
                 </form>
                 <h3 className="current-actions-title">Activities</h3>

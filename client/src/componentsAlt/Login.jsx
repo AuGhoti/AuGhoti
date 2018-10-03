@@ -63,7 +63,7 @@ class Login extends Component {
               signup
             </button>
           </div>
-          <p>{this.props.error}</p>
+          <p >{this.props.error}</p>
         </form>
       </div>
     );
