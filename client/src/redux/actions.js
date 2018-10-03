@@ -27,7 +27,7 @@ export const login = ({ username, password }) => {
         init();
         dispatch({ type: "LOGIN_SUCCESSFUL", data: res.data });
       })
-      .catch(err => console.log(err));
+      .catch(err => console.err(err));
   };
 };
 
@@ -83,7 +83,7 @@ export const loadActivities = () => {
 };
 
 // TODO: use an authAxios variable with headers to pass token
-export const startAction = activityTitle => {
+export const startAction = (activityTitle, description = "") => {
   let obj = {};
   if (!activityTitle)
     obj = {

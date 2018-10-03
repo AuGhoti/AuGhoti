@@ -1,6 +1,8 @@
 import React from 'react'
 import StopIcon from '@material-ui/icons/Stop';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux'
+import { endAction } from '../redux/actions'
 
 const CurrentActionItem = props => {
     const style = {
@@ -21,10 +23,10 @@ const CurrentActionItem = props => {
             <div className="current-action-timer">
                 <h3>{props.startDate}</h3>
                 <h1>{props.startTime}</h1>
-                <Button variant="fab" className="btn-stop"><StopIcon /></Button>
+                <Button variant="fab" className="btn-stop" onClick={() => props.endAction(props._id)}><StopIcon /></Button>
             </div>
         </div>
     )
 }
 
-export default CurrentActionItem
+export default connect(null, { endAction })(CurrentActionItem)

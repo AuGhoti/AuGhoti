@@ -29,7 +29,7 @@ class Login extends Component {
     return (
       <div id="user-authentication">
         <h1 className="login-title">[Au]Ghoti</h1>
-        <img className="login-signup-logo logo" src={logo} />
+        <img className="login-signup-logo logo" src={logo} alt="logo"/>
         <form id="login-signup-form">
           <input
             type="text"
@@ -63,7 +63,7 @@ class Login extends Component {
               signup
             </button>
           </div>
-          <p>{this.props.error}</p>
+          <p >{this.props.error}</p>
         </form>
       </div>
     );

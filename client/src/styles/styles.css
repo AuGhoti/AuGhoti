@@ -92,6 +92,23 @@ body {
     transform: translate(-50% -50%);
 }
 
+#login-error {
+    position: absolute;
+    color: white;
+    left: 50%;
+    bottom: -40%;
+    transform: translateX(-50%);
+    text-align: center;
+    letter-spacing: 1px;
+    font-weight: 300;
+}
+
+.logout-btn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
 /*------------- USER AUTHENTICATION PAGE END---------------*/
 
 /*------------- MAIN DASHBOARD START ---------------*/
@@ -164,6 +181,15 @@ body {
 .dashboard-section-1 {
     padding-top: 60px;
     margin-bottom: 40px;
+}
+
+#drawer-logo {
+    color: rgb(240, 175, 69);
+    font-weight: 500;
+    letter-spacing: 2px;
+    font-size: 2em;
+    position: relative;
+    margin-top: 20px;
 }
 
 /*------------- MAIN DASHBOARD END ---------------*/
