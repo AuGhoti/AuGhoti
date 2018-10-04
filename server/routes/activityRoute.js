@@ -7,6 +7,7 @@ const Activity = require("../models/Activity");
 activitiesRouter
   .route("/")
   .get((req, res) => {
+    console.log(req.user)
     Activity.find({ userId: req.user._id }, (err, activities) => {
       if (err) res.status(500).send(err);
       return res.send(activities);
@@ -15,6 +16,7 @@ activitiesRouter
   .post((req, res) => {
     const newActivity = new Activity(req.body);
     newActivity.userId = req.user._id;
+    console.log(newActivity)
     newActivity.save((err, activity) => {
       if (err) return res.status(500).send(err);
       return res.status(201).send(activity);

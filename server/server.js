@@ -18,7 +18,7 @@ app
   .use("/auth", require("./routes/auth"))
   .use("/api/historical", require("./routes/historicalActionRoute"))
   .use("/api/current", require("./routes/currentActionRoute"))
-  .use("/api/activities", require("./routes/activityRoute"));
+  .use("/api/activity", require("./routes/activityRoute"));
 
 // Connect to the database
 mongoose

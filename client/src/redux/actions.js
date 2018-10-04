@@ -2,60 +2,94 @@ import axios from "axios";
 import moment from "moment";
 
 //TODO: add token to headers, use those in requests requiring authentication
-const authAxios = axios.create();
+let authAxios = axios.create()
+
 authAxios.interceptors.request.use(config => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token")
   config.headers.Authorization = `Bearer ${token}`
-  return config;
+  console.log(config)
+  return config
 })
 
 const init = () => {
   loadCurrentActions();
   loadHistoricalActions();
   loadActivities();
-  return { type: "INIT" };
+  // console.log('loaded')
+  return {
+    type: "INIT"
+  };
 };
 
-export const login = ({ username, password }) => {
+export const login = ({
+  username,
+  password
+}) => {
   if (!username || !password)
-    return { type: "AUTH_ERROR", data: "Username and password required" };
+    return {
+      type: "AUTH_ERROR",
+      data: "Username and password required"
+    };
   return dispatch => {
     axios
-      .post("/auth/login", { username, password })
+      .post("/auth/login", {
+        username,
+        password
+      })
       //TODO: set authAxios here to include the token in the header
       .then(res => {
         init();
-        dispatch({ type: "LOGIN_SUCCESSFUL", data: res.data });
+        dispatch({
+          type: "LOGIN_SUCCESSFUL",
+          data: res.data
+        });
       })
       .catch(err => console.err(err));
   };
 };
 
-export const signup = ({ username, password }) => {
+export const signup = ({
+  username,
+  password
+}) => {
   if (!username || !password)
-    return { type: "LOGIN_ERROR", data: "Username and password required" };
+    return {
+      type: "LOGIN_ERROR",
+      data: "Username and password required"
+    };
   return dispatch => {
     axios
-      .post("/auth/signup", { username, password })
+      .post("/auth/signup", {
+        username,
+        password
+      })
       //TODO: set authAxios here to include the token in the header
       .then(res => {
         init();
-        dispatch({ type: "LOGIN_SUCCESSFUL", data: res.data });
+        dispatch({
+          type: "LOGIN_SUCCESSFUL",
+          data: res.data
+        });
       })
       .catch(err => console.error(err));
   };
 };
 
 export const logout = () => {
-  return { type: "LOGOUT_SUCCESSFUL" };
+  return {
+    type: "LOGOUT_SUCCESSFUL"
+  };
 };
 
 // TODO: use an axios variable with headers to pass token
 export const loadCurrentActions = () => {
   return dispatch => {
     authAxios
-      .get("/api/currentActions")
-      .then(res => dispatch({ type: "CURRENTACTIONS_LOADED", data: res.data }))
+      .get("/api/current")
+      .then(res => dispatch({
+        type: "CURRENTACTIONS_LOADED",
+        data: res.data
+      }))
       .catch(err => console.error(err));
   };
 };
@@ -64,9 +98,12 @@ export const loadCurrentActions = () => {
 export const loadHistoricalActions = () => {
   return dispatch => {
     authAxios
-      .get("/api/historicalActions")
+      .get("/api/historical")
       .then(res =>
-        dispatch({ type: "HISTORICALACTIONS_LOADED", data: res.data })
+        dispatch({
+          type: "HISTORICALACTIONS_LOADED",
+          data: res.data
+        })
       )
       .catch(err => console.error(err));
   };
@@ -75,27 +112,34 @@ export const loadHistoricalActions = () => {
 // TODO: use an authAxios variable with headers to pass token
 export const loadActivities = () => {
   return dispatch => {
-    authAxios
-      .get("/api/activities")
-      .then(res => dispatch({ type: "ACTIVITIES_LOADED", data: res.data }))
-      .catch(err => console.error(err));
-  };
+    authAxios.get("/api/activity")
+      .then(res => {
+        console.log(res)
+        return dispatch({
+          type: "ACTIVITIES_LOADED",
+          data: res.data
+        })
+      })
+      .catch(err => console.error(err))
+  }
 };
 
 // TODO: use an authAxios variable with headers to pass token
 export const startAction = (activityTitle, description = "") => {
-  let obj = {};
-  if (!activityTitle)
-    obj = {
-      activityTitle,
-      startDate: moment().format("Y-MM-DD"),
-      startTime: moment().format("HH:mm:ssZ")
-    };
+
+  const obj = {
+    activityTitle,
+    startDate: moment().format("Y-MM-DD"),
+    startTime: moment().format("HH:mm:ssZ")
+  };
   return dispatch =>
     authAxios
-      .post("/api/currentTimers/start", obj)
-      .then(res => dispatch({ type: "ACTION_STARTED", data: res.data }))
-      .catch(err => console.error(err));
+    .post("/api/current/start", obj)
+    .then(res => dispatch({
+      type: "ACTION_STARTED",
+      data: res.data
+    }))
+    .catch(err => console.error(err));
 };
 
 // TODO: use an authAxios variable with headers to pass token
@@ -104,9 +148,13 @@ export const endAction = id => {
   if (!id) return;
   return dispatch =>
     authAxios
-      .get(`/api/currentTimers/end/${id}`)
-      .then(res => dispatch({ type: "ACTION_ENDED", data: res.data, id }))
-      .catch(err => console.error(err));
+    .get(`/api/current/end/${id}`)
+    .then(res => dispatch({
+      type: "ACTION_ENDED",
+      data: res.data,
+      id
+    }))
+    .catch(err => console.error(err));
 };
 
 // TODO: use an authAxios variable with headers to pass token
@@ -114,9 +162,12 @@ export const deleteCurrentAction = id => {
   if (!id) return;
   return dispatch =>
     authAxios
-      .delete(`/api/currentTimers/${id}`)
-      .then(res => dispatch({ type: "CURRENTACTION_DELETED", id }))
-      .catch(err => console.error(err));
+    .delete(`/api/current/${id}`)
+    .then(res => dispatch({
+      type: "CURRENTACTION_DELETED",
+      id
+    }))
+    .catch(err => console.error(err));
 };
 
 // TODO: use an authAxios variable with headers to pass token
@@ -124,21 +175,29 @@ export const deleteHistoricalAction = id => {
   if (!id) return;
   return dispatch =>
     authAxios
-      .delete(`/api/historicalActions/${id}`)
-      .then(res => dispatch({ type: "HISTORICALACTION_DELETED", id }))
-      .catch(err => console.error(err));
+    .delete(`/api/historical/${id}`)
+    .then(res => dispatch({
+      type: "HISTORICALACTION_DELETED",
+      id
+    }))
+    .catch(err => console.error(err));
 };
 
 // TODO: use an authAxios variable with headers to pass token
 export const addActivity = (title, description = "") => {
   if (!title) return;
-  const obj = { title };
+  const obj = {
+    title
+  };
   if (description) obj.description = description;
   return dispatch =>
     authAxios
-      .post("/api/activity")
-      .then(res => dispatch({ type: "ACTIVITY_ADDED", data: res.data }))
-      .catch(err => console.error(err));
+    .post("/api/activity", obj)
+    .then(res => dispatch({
+      type: "ACTIVITY_ADDED",
+      data: res.data
+    }))
+    .catch(err => console.error(err));
 };
 
 // TODO: use an authAxios variable with headers to pass token
@@ -146,7 +205,10 @@ export const deleteActivity = id => {
   if (!id) return;
   return dispatch =>
     authAxios
-      .delete(`/api/activity/${id}`)
-      .then(res => dispatch({ type: "ACTIVITY_DELETED", id }))
-      .catch(err => console.error(err));
+    .delete(`/api/activity/${id}`)
+    .then(res => dispatch({
+      type: "ACTIVITY_DELETED",
+      id
+    }))
+    .catch(err => console.error(err));
 };

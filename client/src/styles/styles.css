@@ -192,6 +192,10 @@ body {
     margin-top: 20px;
 }
 
+#dashboard-wrapper {
+    min-height: calc(100vh - 170px);
+}
+
 /*------------- MAIN DASHBOARD END ---------------*/
 
 /*------------- CURRENT ACTION COMPONENT START ---------------*/

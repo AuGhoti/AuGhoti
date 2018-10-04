@@ -10,27 +10,6 @@ import { startAction } from '../redux/actions'
 // components
 import CurrentActionItem from './CurrentActionItem'
 
-const dummyData = [
-    {
-        activityTitle: "homework",
-        description: "coding project",
-        startDate: "Oct 1, 2018",
-        startTime: "1:00 PM"
-    },
-    {
-        activityTitle: "lunch",
-        description: "burrito city",
-        startDate: "Oct 1, 2018",
-        startTime: "12:00 PM"
-    },
-    {
-        activityTitle: "class",
-        description: "user auth",
-        startDate: "Oct 1, 2018",
-        startTime: "10:00 PM"
-    },
-]
-
 const styles = theme => ({
     container: {
       display: 'flex',
@@ -64,14 +43,14 @@ class CurrentAction extends Component {
 
     handleSubmit = e => {
         e.preventDefault()
-        this.props.startAction()
+        const { activity, description } = this.state;
+        this.props.startAction(activity, description)
     }
-
 
     activities = ["train", "eat"]
 
     render() {
-        const displayDummy = dummyData.map((data, i) => {
+        const displayCurrentActions = this.props.currentActions.map((data, i) => {
             return <CurrentActionItem key={i} i={i} {...data} />
         })
 
@@ -98,9 +77,9 @@ class CurrentAction extends Component {
                         margin="normal"
                         variant="outlined"
                         >
-                        {this.activities.map(option => (
-                            <MenuItem key={option} value={option}>
-                            {option}
+                        {this.props.activities.map(option => (
+                            <MenuItem key={option._id} value={option.title}>
+                            {option.title}
                             </MenuItem>
                         ))}
                     </TextField>
@@ -113,10 +92,10 @@ class CurrentAction extends Component {
                         margin="normal"
                         />
                     <div className="start-action-btn">
-                        <Button onClick={this.props.handleSubmit}>Start</Button>
+                        <Button onClick={this.handleSubmit}>Start</Button>
                     </div>
                 </form>
-                {displayDummy}
+                {displayCurrentActions}
             </div>
         )
     }
@@ -126,4 +105,7 @@ CurrentAction.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default connect(state => ({ currentActions: state.currentActions }), { startAction })(withStyles(styles)(CurrentAction))
+export default connect(state => ({ 
+    currentActions: state.currentAction,
+    activities: state.activities
+ }), { startAction })(withStyles(styles)(CurrentAction))

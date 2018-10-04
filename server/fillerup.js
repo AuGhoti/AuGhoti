@@ -10,6 +10,8 @@ mongoose
   )
   .then(() => {
     console.log("Connected to DB");
+    // generateActivities();
+    // generateCurrentActions();
     generateHistoricalActions();
   })
   .catch(err => console.error(err));
@@ -17,12 +19,12 @@ mongoose
 function generateActivities() {
   console.log("--Generating activities");
   const activities = [
-    { title: "movies", userId: "5bb3f8d5d5fc9a2f48285a42" },
-    { title: "class", userId: "5bb3f8d5d5fc9a2f48285a42" },
-    { title: "dinner", userId: "5bb3f8d5d5fc9a2f48285a42" },
-    { title: "work", userId: "5bb3f8d5d5fc9a2f48285a42" },
-    { title: "commute", userId: "5bb3f8d5d5fc9a2f48285a42" },
-    { title: "sleep", userId: "5bb3f8d5d5fc9a2f48285a42" }
+    { title: "movies", userId: "5bb4df214757d2064008a8d9" },
+    { title: "class", userId: "5bb4df214757d2064008a8d9" },
+    { title: "dinner", userId: "5bb4df214757d2064008a8d9" },
+    { title: "work", userId: "5bb4df214757d2064008a8d9" },
+    { title: "commute", userId: "5bb4df214757d2064008a8d9" },
+    { title: "sleep", userId: "5bb4df214757d2064008a8d9" }
   ];
   activities.forEach((v, i) => {
     console.log(v.title);
@@ -81,7 +83,7 @@ function generateHistoricalActions() {
           v.endDate = v.startDate;
           v.activityTitle =
             activity[Math.floor(Math.random() * activity.length)].title;
-          v.userId = "5bb3f8d5d5fc9a2f48285a42";
+          v.userId = "5bb4df214757d2064008a8d9";
           HistoricalAction.create(v, (err, action) => {
             if (err) console.log(err);
             else console.log(`historicalaction ${i} created`);
@@ -135,7 +137,7 @@ function generateCurrentActions(count) {
         v.startDate = moment().format("Y-MM-DD");
         v.activityTitle =
           activity[Math.floor(Math.random() * activity.length)].title;
-        v.userId = "5bb3f8d5d5fc9a2f48285a42";
+        v.userId = "5bb4df214757d2064008a8d9";
         CurrentAction.create(
           v,
           (err, action) =>
