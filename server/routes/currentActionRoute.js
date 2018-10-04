@@ -82,7 +82,7 @@ actions.route("/end/:id").get((req, res) => {
       if (err) return res.status(404).send(err);
       delete current._doc._id;
       const endDate = moment().format("YYYY-MM-DD");
-      const endTime = moment().format("hh:mm:ssz");
+      const endTime = moment().format("HH:mm:ssZ");
       const newAction = new HistoricalAction({
         ...current._doc,
         endDate,

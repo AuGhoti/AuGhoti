@@ -7,7 +7,6 @@ let authAxios = axios.create()
 authAxios.interceptors.request.use(config => {
   const token = localStorage.getItem("token")
   config.headers.Authorization = `Bearer ${token}`
-  console.log(config)
   return config
 })
 
@@ -15,7 +14,7 @@ const init = (dispatch) => {
   loadCurrentActions(dispatch);
   loadHistoricalActions(dispatch);
   loadActivities(dispatch);
-  console.log('loaded')
+  loadSortedHistory(dispatch);
   dispatch({
     type: "INIT"
   });
@@ -109,15 +108,24 @@ export const loadHistoricalActions = (dispatch) => {
 export const loadActivities = (dispatch) => {
   return authAxios.get("/api/activity")
     .then(res => {
-      console.log(res)
       return dispatch({
         type: "ACTIVITIES_LOADED",
         data: res.data
       })
     })
     .catch(err => console.error(err))
-
 };
+
+export const loadSortedHistory = (dispatch) => {
+  return authAxios.get("/api/historical/?sort=date")
+    .then(res => {
+      return dispatch({
+        type: "SORTED_DATES_LOADED",
+        data: res.data
+      });
+    })
+    .catch(err => console.log(err));
+}
 
 // TODO: use an authAxios variable with headers to pass token
 export const startAction = (activityTitle, description = "") => {

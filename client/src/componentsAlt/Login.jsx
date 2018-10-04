@@ -19,7 +19,6 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.dir(e);
     if (e.target.name === "login") this.props.login(this.state);
     else if (e.target.name === "signup") this.props.signup(this.state);
     this.setState({ username: "", password: "" });

@@ -38,42 +38,49 @@ class History extends Component {
   render() {
     const { classes } = this.props;
     const { expanded } = this.state;
-
-    const displayHis = this.props.historicalActions.actions.map((his, i) => {
-      return (
-        <ExpansionPanel
-          key={i}
-          expanded={expanded === `panel${i + 1}`}
-          onChange={this.handleChange(`panel${i + 1}`)}
-        >
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>
-              {his.activityTitle}
-            </Typography>
-            <Typography className={classes.secondaryHeading}>
-            {`${moment(his.endDate + "T" + his.endTime).to(moment(his.startDate + "T" + his.startTime), true)} ${his.endDate}`}
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <div className="history-expansion-panels">
-              <Typography>description: {his.description}</Typography>
-              <Typography>
-                time started: {his.startTime} @ {his.startDate}
-              </Typography>
-              <Typography>
-                time completed: {his.endTime} @ {his.endDate}
-              </Typography>
-            </div>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      );
-    });
-
+    const showSorted = []
+    const displaySortedDates = obj => {
+      for(let key in obj) {
+        showSorted.push(<h1 key={key}>{key}</h1>)
+        let ptr = obj[key]
+        for(let i = 0; i < ptr.length; i++) {
+          let his = ptr[i]
+          showSorted.push(
+            <ExpansionPanel
+              key={i}
+              expanded={expanded === `panel${i + 1}`}
+              onChange={this.handleChange(`panel${i + 1}`)}
+            >
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>
+                  {his.activityTitle}
+                </Typography>
+                <Typography className={classes.secondaryHeading}>
+                {`${moment(his.endDate + "T" + his.endTime).to(moment(his.startDate + "T" + his.startTime), true)} ${his.endDate}`}
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <div className="history-expansion-panels">
+                  <Typography>description: {his.description}</Typography>
+                  <Typography>
+                    time started: {his.startTime} @ {his.startDate}
+                  </Typography>
+                  <Typography>
+                    time completed: {his.endTime} @ {his.endDate}
+                  </Typography>
+                </div>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          );
+        }
+      }
+    }
+    displaySortedDates(this.props.sortedDates.actions)
     return (
       <div id="history-wrapper">
         <h1 className="page-title">history</h1>
         <div className={classes.root} id="history-container">
-          {displayHis}
+          {showSorted}
         </div>
       </div>
     );
@@ -85,6 +92,9 @@ History.propTypes = {
 };
 
 export default connect(
-  state => ({ historicalActions: state.historicalActions }),
+  state => ({ 
+    historicalActions: state.historicalActions,
+    sortedDates: state.sortedDates
+  }),
   {}
 )(withStyles(styles)(History));
