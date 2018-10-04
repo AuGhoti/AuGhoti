@@ -57,7 +57,7 @@ actions
 
 actions.route("/start").post((req, res) => {
   let startTime, startDate;
-  console.log(req.body)
+  console.log(req.body);
   if (!req.body.startDate) startDate = moment().format("YYYY-MM-DD");
   else startDate = req.body.startDate;
   if (!req.body.startTime) startTime = moment().format("hh:mm:ssZ");
@@ -80,6 +80,7 @@ actions.route("/end/:id").get((req, res) => {
     { _id: req.params.id, userId: req.user._id },
     (err, current) => {
       if (err) return res.status(404).send(err);
+      console.log(current);
       delete current._doc._id;
       const endDate = moment().format("YYYY-MM-DD");
       const endTime = moment().format("hh:mm:ssz");

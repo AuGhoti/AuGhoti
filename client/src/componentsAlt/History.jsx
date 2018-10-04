@@ -7,7 +7,7 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { connect } from "react-redux";
-import moment from 'moment'
+import moment from "moment";
 
 const styles = theme => ({
   root: {
@@ -39,35 +39,40 @@ class History extends Component {
     const { classes } = this.props;
     const { expanded } = this.state;
 
-    const displayHis = this.props.historicalActions.actions.map((his, i) => {
-      return (
-        <ExpansionPanel
-          key={i}
-          expanded={expanded === `panel${i + 1}`}
-          onChange={this.handleChange(`panel${i + 1}`)}
-        >
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>
-              {his.activityTitle}
-            </Typography>
-            <Typography className={classes.secondaryHeading}>
-            {`${moment(his.endDate + "T" + his.endTime).to(moment(his.startDate + "T" + his.startTime), true)} ${his.endDate}`}
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <div className="history-expansion-panels">
-              <Typography>description: {his.description}</Typography>
-              <Typography>
-                time started: {his.startTime} @ {his.startDate}
-              </Typography>
-              <Typography>
-                time completed: {his.endTime} @ {his.endDate}
-              </Typography>
-            </div>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      );
-    });
+    const displayHis = !this.props.historicalActions.actions
+      ? ""
+      : this.props.historicalActions.actions.map((his, i) => {
+          return (
+            <ExpansionPanel
+              key={i}
+              expanded={expanded === `panel${i + 1}`}
+              onChange={this.handleChange(`panel${i + 1}`)}
+            >
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>
+                  {his.activityTitle}
+                </Typography>
+                <Typography className={classes.secondaryHeading}>
+                  {`${moment(his.endDate + "T" + his.endTime).to(
+                    moment(his.startDate + "T" + his.startTime),
+                    true
+                  )} ${his.endDate}`}
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <div className="history-expansion-panels">
+                  <Typography>description: {his.description}</Typography>
+                  <Typography>
+                    time started: {his.startTime} @ {his.startDate}
+                  </Typography>
+                  <Typography>
+                    time completed: {his.endTime} @ {his.endDate}
+                  </Typography>
+                </div>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          );
+        });
 
     return (
       <div id="history-wrapper">
