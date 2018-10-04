@@ -80,8 +80,15 @@ const historicalActions = (prev = [], action) => {
   switch (action.type) {
     case "LOGOUT_SUCCESSFUL":
       return [];
+    case "HISTORICALACTIONS_LOADED":
+      return action.data;
     case "ACTION_ENDED":
-      return [...prev, action.data];
+      const pages = {
+        page: prev.page,
+        pages: prev.pages,
+        actions: [...prev.actions, action.data]
+      }
+      return pages
     case "HISTORICALACTION_DELETED":
       return prev.filter(v => v._id !== action.data);
     default:
@@ -104,6 +111,8 @@ const activities = (prev = [], action) => {
   switch (action.type) {
     case "LOGOUT_SUCCESSFUL":
       return [];
+    case "ACTIVITIES_LOADED":
+      return action.data;
     case "ACTIVITY_ADDED":
       return [...prev, action.data];
     case "ACTIVITY_DELETED":

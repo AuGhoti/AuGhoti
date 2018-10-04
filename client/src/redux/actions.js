@@ -11,14 +11,14 @@ authAxios.interceptors.request.use(config => {
   return config
 })
 
-const init = () => {
-  loadCurrentActions();
-  loadHistoricalActions();
-  loadActivities();
-  // console.log('loaded')
-  return {
+const init = (dispatch) => {
+  loadCurrentActions(dispatch);
+  loadHistoricalActions(dispatch);
+  loadActivities(dispatch);
+  console.log('loaded')
+  dispatch({
     type: "INIT"
-  };
+  });
 };
 
 export const login = ({
@@ -38,12 +38,12 @@ export const login = ({
       })
       //TODO: set authAxios here to include the token in the header
       .then(res => {
-        init();
         dispatch({
           type: "LOGIN_SUCCESSFUL",
           data: res.data
         });
       })
+      .then(init(dispatch))
       .catch(err => console.err(err));
   };
 };
@@ -82,46 +82,41 @@ export const logout = () => {
 };
 
 // TODO: use an axios variable with headers to pass token
-export const loadCurrentActions = () => {
-  return dispatch => {
-    authAxios
-      .get("/api/current")
-      .then(res => dispatch({
-        type: "CURRENTACTIONS_LOADED",
+export const loadCurrentActions = (dispatch) => {
+  return authAxios
+    .get("/api/current")
+    .then(res => dispatch({
+      type: "CURRENTACTIONS_LOADED",
+      data: res.data
+    }))
+    .catch(err => console.error(err));
+};
+
+// TODO: use an authAxios variable with headers to pass token
+export const loadHistoricalActions = (dispatch) => {
+  return authAxios
+    .get("/api/historical")
+    .then(res =>
+      dispatch({
+        type: "HISTORICALACTIONS_LOADED",
         data: res.data
-      }))
-      .catch(err => console.error(err));
-  };
-};
-
-// TODO: use an authAxios variable with headers to pass token
-export const loadHistoricalActions = () => {
-  return dispatch => {
-    authAxios
-      .get("/api/historical")
-      .then(res =>
-        dispatch({
-          type: "HISTORICALACTIONS_LOADED",
-          data: res.data
-        })
-      )
-      .catch(err => console.error(err));
-  };
-};
-
-// TODO: use an authAxios variable with headers to pass token
-export const loadActivities = () => {
-  return dispatch => {
-    authAxios.get("/api/activity")
-      .then(res => {
-        console.log(res)
-        return dispatch({
-          type: "ACTIVITIES_LOADED",
-          data: res.data
-        })
       })
-      .catch(err => console.error(err))
-  }
+    )
+    .catch(err => console.error(err));
+};
+
+// TODO: use an authAxios variable with headers to pass token
+export const loadActivities = (dispatch) => {
+  return authAxios.get("/api/activity")
+    .then(res => {
+      console.log(res)
+      return dispatch({
+        type: "ACTIVITIES_LOADED",
+        data: res.data
+      })
+    })
+    .catch(err => console.error(err))
+
 };
 
 // TODO: use an authAxios variable with headers to pass token
