@@ -16,7 +16,7 @@ class LineChart extends Component {
                 <Line
                     data={this.props.chartData? this.props.chartData : {}}
                     width={200}
-                    height={100}
+                    height={200}
                     options={{
                         title: {
                             display: this.props.displayTitle,

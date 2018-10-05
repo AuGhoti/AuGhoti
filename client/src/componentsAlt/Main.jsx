@@ -70,6 +70,7 @@ class Main extends Component {
       <div>
         <div id="main-nav">
           <img className="main-nav-logo" src={logo} alt="logo"/>
+          <h1 id="username">{console.log(this.props.userInfo)}</h1>
           <Button
             className="menu-btn"
             style={{ color: "#b2bec3" }}
@@ -104,6 +105,6 @@ Main.propTypes = {
 };
 
 export default connect(
-  null,
+  state => ({userInfo: state.userInfo}),
   { logout }
 )(withStyles(styles)(Main));

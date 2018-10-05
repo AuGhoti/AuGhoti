@@ -36,8 +36,10 @@ const userInfo = (prev = {}, action) => {
     case "VERIFY":
       return localStorage.getItem("user");
     case "LOGIN_SUCCESSFUL":
-      return action.data.user;
+      localStorage.setItem("user", action.data.user.username);
+      return action.data.user.username;
     case "LOGOUT_SUCCESSFUL":
+      localStorage.removeItem("user");
       return {};
     default:
       return prev;

@@ -14,8 +14,8 @@ class BarChart extends Component {
             <div className="Chart">
                 <Bar
                     data={this.props.chartData? this.props.chartData : {}}
-                    width={200}
-                    height={200}
+                    width={300}
+                    height={300}
                     options={{
                         title: {
                             display: this.props.displayTitle,
@@ -23,7 +23,7 @@ class BarChart extends Component {
                             fontSize: 40
                         },
                         legend: {
-                            display: this.props.displayLegend,
+        
                             position: this.props.legendPosition
                         }
                     }}
