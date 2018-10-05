@@ -4,15 +4,16 @@ import moment from "moment";
 let authAxios = axios.create();
 
 authAxios.interceptors.request.use(config => {
-  const token = localStorage.getItem("token");
-  config.headers.Authorization = `Bearer ${token}`;
-  return config;
-});
+  const token = localStorage.getItem("token")
+  config.headers.Authorization = `Bearer ${token}`
+  return config
+})
 
 const init = dispatch => {
   loadCurrentActions(dispatch);
   loadHistoricalActions(dispatch);
   loadActivities(dispatch);
+  loadSortedHistory(dispatch);
   dispatch({
     type: "INIT"
   });
@@ -115,6 +116,18 @@ export const loadActivities = dispatch => {
     .catch(err => console.log(err));
 };
 
+export const loadSortedHistory = (dispatch) => {
+  return authAxios.get("/api/historical/?sort=date")
+    .then(res => {
+      return dispatch({
+        type: "SORTED_DATES_LOADED",
+        data: res.data
+      });
+    })
+    .catch(err => console.log(err));
+}
+
+// TODO: use an authAxios variable with headers to pass token
 export const startAction = (activityTitle, description = "") => {
   const obj = {
     activityTitle,

@@ -102,6 +102,28 @@ const isHistoricalActionsLoaded = (prev = false, action) => {
   }
 };
 
+const sortedDates = (prev = [], action) => {
+  switch(action.type) {
+    case "LOGOUT_SUCCESSFULL":
+      return [];
+    case "SORTED_DATES_LOADED":
+      return action.data;
+    default: 
+      return prev
+  }
+}
+
+const isSortedDatesLoaded = (prev = false, action) => {
+  switch(action.type) {
+    case "LOGOUT_SUCCESSFUL":
+      return false;
+    case "SORTED_DATES_LOADED":
+      return true
+    default:
+      return prev
+  }
+}
+
 const activities = (prev = [], action) => {
   switch (action.type) {
     case "LOGOUT_SUCCESSFUL":
@@ -150,6 +172,8 @@ const reducer = combineReducers({
   isHistoricalActionsLoaded,
   activities,
   isActivitiesLoaded,
+  sortedDates,
+  isSortedDatesLoaded,
   error
 });
 
