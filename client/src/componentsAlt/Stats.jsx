@@ -22,7 +22,6 @@ class Stats extends Component {
 
     getChartData() {
         let temp = this.props.historicalActions.actions.map(activity => {
-
             let time = moment(activity.endDate + "T" + activity.endTime).to(moment(activity.startDate + "T" + activity.startTime), true)
             return this.isNumber(time)
         })
