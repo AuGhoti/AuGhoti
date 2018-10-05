@@ -1,16 +1,10 @@
-import {
-  createStore,
-  combineReducers,
-  compose,
-  applyMiddleware
-} from "redux";
+import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
 const isAuthenticated = (prev = false, action) => {
   switch (action.type) {
-    // TODO: this won't work like intended
-    // case "INIT":
-    // return localStorage.getItem("token") ? true : false;
+    case "VERIFY":
+      return true;
     case "LOGIN_SUCCESSFUL":
       return true;
     case "LOGOUT_SUCCESSFUL":
@@ -21,14 +15,13 @@ const isAuthenticated = (prev = false, action) => {
 };
 
 const token = (prev = null, action) => {
-  // TODO: this won't work as intended
   switch (action.type) {
-    // case "INIT":
-    //   return localStorage.getItem("token");
+    case "VERIFY":
+      return localStorage.getItem("token");
     case "LOGIN_SUCCESSFUL":
       localStorage.setItem("token", action.data.token);
       localStorage.setItem("id", action.data.user._id);
-      return action.data;
+      return action.data.token;
     case "LOGOUT_SUCCESSFUL":
       localStorage.removeItem("token");
       localStorage.removeItem("id");
@@ -40,6 +33,8 @@ const token = (prev = null, action) => {
 
 const userInfo = (prev = {}, action) => {
   switch (action.type) {
+    case "VERIFY":
+      return localStorage.getItem("user");
     case "LOGIN_SUCCESSFUL":
       return action.data.user;
     case "LOGOUT_SUCCESSFUL":
@@ -87,8 +82,8 @@ const historicalActions = (prev = [], action) => {
         page: prev.page,
         pages: prev.pages,
         actions: [...prev.actions, action.data]
-      }
-      return pages
+      };
+      return pages;
     case "HISTORICALACTION_DELETED":
       return prev.filter(v => v._id !== action.data);
     default:
