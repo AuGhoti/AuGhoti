@@ -41,12 +41,14 @@ class Main extends Component {
 
     const sideList = (
       <div className={classes.list} id="drawer-items">
-        <div className={classes.toolbar} id="drawer-logo">[Au]Ghoti</div>
+        <div className={classes.toolbar} id="drawer-logo">
+          [Au]Ghoti
+        </div>
         <Divider style={{ marginLeft: "-10px" }} />
         <Link to="/">
           <List>dashboard</List>
         </Link>
-        
+
         <Link to="/current">
           <List>current</List>
         </Link>
@@ -55,7 +57,7 @@ class Main extends Component {
           <List>activities</List>
         </Link>
         <Link to="/history">
-         <List>history</List>
+          <List>history</List>
         </Link>
         <Link to="/analytics">
           <List>analytics</List>
@@ -69,8 +71,8 @@ class Main extends Component {
     return (
       <div>
         <div id="main-nav">
-          <img className="main-nav-logo" src={logo} alt="logo"/>
-          <h1 id="username">{console.log(this.props.userInfo)}</h1>
+          <img className="main-nav-logo" src={logo} alt="logo" />
+          <h1 id="display-username">{this.props.user}</h1>
           <Button
             className="menu-btn"
             style={{ color: "#b2bec3" }}
@@ -105,6 +107,6 @@ Main.propTypes = {
 };
 
 export default connect(
-  state => ({userInfo: state.userInfo}),
+  state => ({ user: state.userInfo }),
   { logout }
 )(withStyles(styles)(Main));

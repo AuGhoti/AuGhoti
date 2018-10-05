@@ -1,112 +1,111 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    letter-spacing: 1px;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 1px;
 }
 
 .btn {
-    font-size: 1.2em;
-    font-weight: 300;
-    color: #dfe6e9;
-    background-color: #636e72;
-    transition: all .4s;
-    border-radius: 20px;
-    padding: 5px 10px;
-    box-shadow: 0 2px 2px 0px rgba(0,0,0,0.3), 0 1px 5px -2px rgba(0,0,0,0.3), 0 2px 2px 0 rgba(0,0,0,0.3);
+  font-size: 1.2em;
+  font-weight: 300;
+  color: #dfe6e9;
+  background-color: #636e72;
+  transition: all 0.4s;
+  border-radius: 20px;
+  padding: 5px 10px;
+  box-shadow: 0 2px 2px 0px rgba(0, 0, 0, 0.3),
+    0 1px 5px -2px rgba(0, 0, 0, 0.3), 0 2px 2px 0 rgba(0, 0, 0, 0.3);
 }
 
 .btn:hover {
-    background-color: rgb(240, 175, 69);
-    color: white;
+  background-color: rgb(240, 175, 69);
+  color: white;
 }
 
 /*------------- USER AUTHENTICATION PAGE START---------------*/
 
 .login-title {
-    letter-spacing: 6px;
-    font-size: 4em;
-    font-weight: 800;
-    color: rgb(240, 175, 69);
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
+  letter-spacing: 6px;
+  font-size: 4em;
+  font-weight: 800;
+  color: rgb(240, 175, 69);
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 #user-authentication {
-    width: 100vw;
-    height: 100vh;
-    background-color:#2d3436;
+  width: 100vw;
+  height: 100vh;
+  background-color: #2d3436;
 }
 
 #login-signup-form {
-    position: absolute;
-    left: 50%;
-    top: 70%;
-    transform: translate(-50%, -50%);
-    width: 300px;
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  transform: translate(-50%, -50%);
+  width: 300px;
 }
 
 #login-signup-form input {
-    border: 1px solid rgb(172, 172, 172);
-    width: 100%;
-    border-radius: 20px;
-    font-size: 1.3em;
-    margin-bottom: 10px;
-    padding: 5px 5px 5px 10px;
-    letter-spacing: 1px;
-    font-weight: 300;
-    background-color: #b2bec3;
+  border: 1px solid rgb(172, 172, 172);
+  width: 100%;
+  border-radius: 20px;
+  font-size: 1.3em;
+  margin-bottom: 10px;
+  padding: 5px 5px 5px 10px;
+  letter-spacing: 1px;
+  font-weight: 300;
+  background-color: #b2bec3;
 }
 #login-signup-form input:focus {
-    outline-width: 0;
+  outline-width: 0;
 }
 
 #auth-action-handlers {
-    float: right;
-    
+  float: right;
 }
 
 .login-btn {
-    margin-right: 20px;
-    border: none;
+  margin-right: 20px;
+  border: none;
 }
 .signup-btn {
-    margin-right: 20px;
-    border: none;
-    
+  margin-right: 20px;
+  border: none;
 }
 
 .logo {
-    width: 100px;
-    height: auto;
-    position: absolute;
-    top: 54%;
-    transform: rotate(-10deg);
-    left: 50%;
-    transform: translate(-50% -50%);
+  width: 100px;
+  height: auto;
+  position: absolute;
+  top: 54%;
+  transform: rotate(-10deg);
+  left: 50%;
+  transform: translate(-50% -50%);
 }
 
 #login-error {
-    position: absolute;
-    color: white;
-    left: 50%;
-    bottom: -40%;
-    transform: translateX(-50%);
-    text-align: center;
-    letter-spacing: 1px;
-    font-weight: 300;
+  position: absolute;
+  color: white;
+  left: 50%;
+  bottom: -40%;
+  transform: translateX(-50%);
+  text-align: center;
+  letter-spacing: 1px;
+  font-weight: 300;
 }
 
 .logout-btn {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 /*------------- USER AUTHENTICATION PAGE END---------------*/
@@ -114,86 +113,98 @@ body {
 /*------------- MAIN DASHBOARD START ---------------*/
 
 #main-nav {
-    position: fixed;
-    width: 100vw;
-    height: 60px;
-    background-color: #2d3436;
-    z-index: 20;
-    /* background-color: #6f7d81; */
+  position: fixed;
+  width: 100vw;
+  height: 60px;
+  background-color: #2d3436;
+  z-index: 20;
+  /* background-color: #6f7d81; */
 }
 .main-nav-logo {
-    display: inline-block;
-    height: 50px;
-    width: auto;
-    margin-left: 5px;
-    margin-top: 10px;
+  display: inline-block;
+  height: 50px;
+  width: auto;
+  margin-left: 5px;
+  margin-top: 10px;
 }
+
+#display-username {
+  color: rgb(240, 175, 69);
+  letter-spacing: 1px;
+  display: inline-block;
+  font-weight: 400;
+  overflow: hidden;
+  max-width: calc(100vw - 170px);
+  text-overflow: ellipsis;
+  margin-left: 5px;
+}
+
 .menu-btn {
-    position: fixed;
-    float: right;
-    right: 15px;
-    top: 10px;
-    color: #b2bec3;
+  position: fixed;
+  float: right;
+  right: 15px;
+  top: 10px;
+  color: #b2bec3;
 }
 
 #main-drawer {
-    background-color: #2d3436;
-    height: 100vh;
+  background-color: #2d3436;
+  height: 100vh;
 }
 #drawer-items * {
-    text-decoration: none;
-    font-size: 1.1em;
-    font-weight: 300;
-    letter-spacing: 1px;
-    color: #b2bec3;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: #b2bec3;
 }
 #main-content-full {
-    background-color: #2d3436;
+  background-color: #2d3436;
 }
 
 #main-content-wrapper {
-    padding-top: 80px;
-    height: auto;
-    color: #b2bec3;
-    padding-bottom: 50px;
+  padding-top: 80px;
+  height: auto;
+  color: #b2bec3;
+  padding-bottom: 50px;
 }
 
 .page-title {
-    text-transform: uppercase;
-    font-weight: 800;
-    font-size: 3em;
-    padding-left: 10px;
-    z-index: 15;
-    position: fixed;
-    top: 59px;
-    padding-top: 10px;
-    padding-bottom: 5px;
-    background-color: #2d3436;
-    width: 100vw;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 3em;
+  padding-left: 10px;
+  z-index: 15;
+  position: fixed;
+  top: 59px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  background-color: #2d3436;
+  width: 100vw;
 }
 
 .current-actions-title {
-    margin-left: 10px;
-    font-size: 2em;
-    margin-bottom: 5px;
+  margin-left: 10px;
+  font-size: 2em;
+  margin-bottom: 5px;
 }
 
 .dashboard-section-1 {
-    padding-top: 60px;
-    margin-bottom: 40px;
+  padding-top: 60px;
+  margin-bottom: 40px;
 }
 
 #drawer-logo {
-    color: rgb(240, 175, 69);
-    font-weight: 500;
-    letter-spacing: 2px;
-    font-size: 2em;
-    position: relative;
-    margin-top: 20px;
+  color: rgb(240, 175, 69);
+  font-weight: 500;
+  letter-spacing: 2px;
+  font-size: 2em;
+  position: relative;
+  margin-top: 20px;
 }
 
 #dashboard-wrapper {
-    min-height: calc(100vh - 170px);
+  min-height: calc(100vh - 170px);
 }
 
 /*------------- MAIN DASHBOARD END ---------------*/
@@ -201,29 +212,29 @@ body {
 /*------------- CURRENT ACTION COMPONENT START ---------------*/
 
 #current-action-wrapper {
-    padding-top: 60px;
+  padding-top: 60px;
 }
 
 #current-action-select {
-    width: 70%;
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    flex-direction: column;
+  width: 70%;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 #current-action-select * {
-    color: #b2bec3;
-    border-color: #b2bec3;
+  color: #b2bec3;
+  border-color: #b2bec3;
 }
 #current-action-select *::before {
-    color: #b2bec3;
-    border-color: #b2bec3;
+  color: #b2bec3;
+  border-color: #b2bec3;
 }
 
 .start-action-btn {
-    margin: 10px auto 20px auto;  
+  margin: 10px auto 20px auto;
 }
 
 /*------------- CURRENT ACTION COMPONENT END ---------------*/
@@ -231,26 +242,26 @@ body {
 
 .current-action-card h1,
 .current-action-card h4 {
-    font-weight: 300
+  font-weight: 300;
 }
 .current-action-card h3 {
-    font-weight: 400
+  font-weight: 400;
 }
 
 .btn-stop {
-    max-height: 40px;
-    max-width: 40px;
+  max-height: 40px;
+  max-width: 40px;
 }
 
 .current-action-card {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px 10px 20px;
-    height: 130px;
-    margin-bottom: 5px;
-    margin-right: 10px;
-    margin-left: 10px;
-    border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px 10px 20px;
+  height: 130px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  margin-left: 10px;
+  border-radius: 5px;
 }
 
 /* .current-action-context {
@@ -258,77 +269,66 @@ body {
 } */
 
 .current-action-timer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
-
 
 /*------------- CURRENT ACTION ITEM COMPONENT END ---------------*/
 
 /*------------- ACTIVITY ITEM COMPONENT START ---------------*/
 .activities-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .activity-card {
-    height: 200px;
-    width: 200px;
-    background-color: #6f7d81;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between
+  height: 200px;
+  width: 200px;
+  background-color: #6f7d81;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.activity-card-context h3{
-    font-size: 2em;
+.activity-card-context h3 {
+  font-size: 2em;
 }
 
 .activity-card-context h4 {
-    font-size: 1.7em;
-    font-weight: 400;
+  font-size: 1.7em;
+  font-weight: 400;
 }
 .activity-card-context {
-    margin-left: 5px;
-    margin-top: 5px;
+  margin-left: 5px;
+  margin-top: 5px;
 }
 
 .activity-card-btns {
-    display: flex;
-    justify-content: space-evenly;
-    margin-right: 15px;
-    margin-left: 15px;
-    margin-bottom: 15px;
+  display: flex;
+  justify-content: space-evenly;
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-bottom: 15px;
 }
 /*------------- ACTIVITY ITEM COMPONENT END ---------------*/
 
 /*------------- HISTORY COMPONENT START ---------------*/
 
 #history-container {
-    margin-top: 80px;
-    margin-left: 10px;
-    margin-right: 10px;
+  margin-top: 80px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .history-expansion-panels {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 #history-wrapper,
 #current-action-wrapper {
     min-height: 90vh;
-}
-
-#username {
-    z-index: 10;
-    color: white;
-    position: absolute;
-    left: 20%;
-    height: 100px;
-    width: 100px;
-    font-size: 2em;
 }
