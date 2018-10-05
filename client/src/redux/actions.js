@@ -4,20 +4,28 @@ import moment from "moment";
 let authAxios = axios.create();
 
 authAxios.interceptors.request.use(config => {
-  const token = localStorage.getItem("token");
-  config.headers.Authorization = `Bearer ${token}`;
-  console.log(config);
-  return config;
-});
+  const token = localStorage.getItem("token")
+  config.headers.Authorization = `Bearer ${token}`
+  return config
+})
 
 const init = dispatch => {
   loadCurrentActions(dispatch);
   loadHistoricalActions(dispatch);
   loadActivities(dispatch);
-  console.log("loaded");
+  loadSortedHistory(dispatch);
   dispatch({
     type: "INIT"
   });
+};
+
+export const verify = () => {
+  return dispatch => {
+    if (localStorage.getItem("token")) {
+      init(dispatch);
+      dispatch({ type: "VERIFY" });
+    }
+  };
 };
 
 export const login = ({ username, password }) => {
@@ -56,13 +64,13 @@ export const signup = ({ username, password }) => {
         password
       })
       .then(res => {
-        init();
+        init(dispatch);
         dispatch({
           type: "LOGIN_SUCCESSFUL",
           data: res.data
         });
       })
-      .catch(err => localStorage.clear());
+      .catch(err => console.log(err));
   };
 };
 
@@ -81,7 +89,7 @@ export const loadCurrentActions = dispatch => {
         data: res.data
       })
     )
-    .catch(err => localStorage.clear());
+    .catch(err => console.log(err));
 };
 
 export const loadHistoricalActions = dispatch => {
@@ -93,22 +101,33 @@ export const loadHistoricalActions = dispatch => {
         data: res.data
       })
     )
-    .catch(err => localStorage.clear());
+    .catch(err => console.log(err));
 };
 
 export const loadActivities = dispatch => {
   return authAxios
     .get("/api/activity")
     .then(res => {
-      console.log(res);
       return dispatch({
         type: "ACTIVITIES_LOADED",
         data: res.data
       });
     })
-    .catch(err => localStorage.clear());
+    .catch(err => console.log(err));
 };
 
+export const loadSortedHistory = (dispatch) => {
+  return authAxios.get("/api/historical/?sort=date")
+    .then(res => {
+      return dispatch({
+        type: "SORTED_DATES_LOADED",
+        data: res.data
+      });
+    })
+    .catch(err => console.log(err));
+}
+
+// TODO: use an authAxios variable with headers to pass token
 export const startAction = (activityTitle, description = "") => {
   const obj = {
     activityTitle,
@@ -124,7 +143,7 @@ export const startAction = (activityTitle, description = "") => {
           data: res.data
         })
       )
-      .catch(err => localStorage.clear());
+      .catch(err => console.log(err));
 };
 
 export const endAction = id => {
@@ -139,7 +158,7 @@ export const endAction = id => {
           id
         })
       )
-      .catch(err => localStorage.clear());
+      .catch(err => console.log(err));
 };
 
 export const deleteCurrentAction = id => {
@@ -153,7 +172,7 @@ export const deleteCurrentAction = id => {
           id
         })
       )
-      .catch(err => localStorage.clear());
+      .catch(err => console.log(err));
 };
 
 export const deleteHistoricalAction = id => {
@@ -167,7 +186,7 @@ export const deleteHistoricalAction = id => {
           id
         })
       )
-      .catch(err => localStorage.clear());
+      .catch(err => console.log(err));
 };
 
 export const addActivity = (title, description = "") => {
@@ -185,7 +204,7 @@ export const addActivity = (title, description = "") => {
           data: res.data
         })
       )
-      .catch(err => localStorage.clear());
+      .catch(err => console.log(err));
 };
 
 export const deleteActivity = id => {
@@ -199,5 +218,5 @@ export const deleteActivity = id => {
           id
         })
       )
-      .catch(err => localStorage.clear());
+      .catch(err => console.log(err));
 };

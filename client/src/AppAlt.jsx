@@ -1,21 +1,36 @@
-import React, { Fragment } from "react";
+import React, { Fragment, Component } from "react";
 import { connect } from "react-redux";
+import { verify } from "./redux/actions";
 
 // components
 import Login from "./componentsAlt/Login";
 import Main from "./componentsAlt/Main";
-import Current from "./componentsAlt/Current"
-import { withRouter } from 'react-router-dom'
-
+import Current from "./componentsAlt/Current";
+import { withRouter } from "react-router-dom";
 
 // styles
 import "./styles/styles.css";
 
-const AppAlt = props => {
-  return props.isAuthenticated ? <Fragment><Main /><Current /></Fragment> : <Login />
-};
+class AppAlt extends Component {
+  componentDidMount() {
+    this.props.verify();
+  }
 
-export default withRouter(connect(
-  state => ({ isAuthenticated: state.isAuthenticated }),
-  {}
-)(AppAlt));
+  render() {
+    return this.props.isAuthenticated ? (
+      <Fragment>
+        <Main />
+        <Current />
+      </Fragment>
+    ) : (
+      <Login />
+    );
+  }
+}
+
+export default withRouter(
+  connect(
+    state => ({ isAuthenticated: state.isAuthenticated }),
+    { verify }
+  )(AppAlt)
+);

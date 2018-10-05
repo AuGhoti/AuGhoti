@@ -18,6 +18,7 @@ authRouter.post("/signup", (req, res) => {
       if (err) return res.status(500).send({ success: false, err });
 
       const token = jwt.sign(user.toObject(), process.env.SECRET);
+      console.log(token);
       return res
         .status(201)
         .send({ success: true, user: user.withoutPassword(), token });
@@ -30,9 +31,10 @@ authRouter.post("/login", (req, res) => {
   if (req.body.username) {
     User.findOne({ username: req.body.username }, (err, user) => {
       if (!user || err) {
-        return res
-          .status(403)
-          .send({ success: false, err: "Username or password is totes incorrect" });
+        return res.status(403).send({
+          success: false,
+          err: "Username or password is totes incorrect"
+        });
       } else {
         user.checkPassword(req.body.password, (err, match) => {
           if (err) return res.status(500).send({ success: false, err });

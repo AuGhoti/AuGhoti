@@ -19,7 +19,6 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.dir(e);
     if (e.target.name === "login") this.props.login(this.state);
     else if (e.target.name === "signup") this.props.signup(this.state);
     this.setState({ username: "", password: "" });
@@ -29,7 +28,7 @@ class Login extends Component {
     return (
       <div id="user-authentication">
         <h1 className="login-title">[Au]Ghoti</h1>
-        <img className="login-signup-logo logo" src={logo} alt="logo"/>
+        <img className="login-signup-logo logo" src={logo} alt="logo" />
         <form id="login-signup-form">
           <input
             type="text"
@@ -63,7 +62,7 @@ class Login extends Component {
               signup
             </button>
           </div>
-          <p >{this.props.error}</p>
+          <p>{this.props.error}</p>
         </form>
       </div>
     );

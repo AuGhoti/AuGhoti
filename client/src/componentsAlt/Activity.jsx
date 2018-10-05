@@ -10,25 +10,6 @@ import { addActivity } from '../redux/actions'
 // components
 import ActivityItem from './ActivityItem'
 
-// const dummyAct = [
-//     {
-//         title: "coding",
-//         description: "full stack"
-//     },
-//     {
-//         title: "eating",
-//         description: "burrito city"
-//     },
-//     {
-//         title: "exercise",
-//         description: "weight-lifting"
-//     },
-//     {
-//         title: "halo",
-//         description: "slaying bodies"
-//     }
-// ]
-
 const styles = theme => ({
     container: {
       display: 'flex',

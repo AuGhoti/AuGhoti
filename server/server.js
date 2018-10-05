@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const app = express();
 const expressJwt = require("express-jwt");
 const morgan = require("morgan");
-const PORT = process.env.PORT || 8080;
 require("dotenv").config();
+const PORT = process.env.PORT || 8080;
 
 // Adding middleware
 app
@@ -18,7 +18,8 @@ app
   .use("/auth", require("./routes/auth"))
   .use("/api/historical", require("./routes/historicalActionRoute"))
   .use("/api/current", require("./routes/currentActionRoute"))
-  .use("/api/activity", require("./routes/activityRoute"));
+  .use("/api/activity", require("./routes/activityRoute"))
+  .use("/api/stats", require("./routes/statsRoute"));
 
 // Connect to the database
 mongoose
