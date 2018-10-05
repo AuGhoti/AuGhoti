@@ -167,7 +167,6 @@ const reducer = combineReducers({
   isAuthenticated,
   token,
   userInfo,
-  userInfo,
   currentAction,
   isCurrentActionsLoaded,
   historicalActions,
